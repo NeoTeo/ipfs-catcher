@@ -1,8 +1,8 @@
 var curUrl = window.location.toString()
-var regExp = /http.*(Qm\w{44})/
-var matches = regExp.exec(curUrl)
-
+var regExp = /.*(Qm\w{44})/
 var regExcl = /http:\/\/localhost.*/
+
+var matches = regExp.exec(curUrl)
 
 if (matches != null) {
     if (matches.length > 1 && !regExcl.test(curUrl)) {
