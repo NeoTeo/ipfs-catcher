@@ -7,7 +7,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>ipfs-catcher</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.ipfs-catcher</string>
+	<string>com.terminalglow.ipfs-catcher</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>

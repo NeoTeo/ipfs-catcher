@@ -1,12 +1,27 @@
+// read the address bar
 var curUrl = window.location.toString()
-var regExp = /.*(Qm\w{44})/
-var regExcl = /http:\/\/localhost.*/
 
+// capture groups always result in the equivalent number of entries in the array.
+var regExp = /.?(\/ipfs\/|\/ipns\/)?(Qm\w{44})/
+var regExcl = /http:\/\/localhost.*/
 var matches = regExp.exec(curUrl)
 
+// If matches is not null it will always have 3 elements, some of 
+// which may be null.
 if (matches != null) {
+
     if (matches.length > 1 && !regExcl.test(curUrl)) {
-        var newUrl = "http://localhost:8080/ipfs/"+matches[1]
-        window.location = newUrl
+
+        // matches[1] is the protocol.
+        var proto = matches[1]
+        defaultProto = (proto == null) ? "/ipfs/" : proto
+
+        // matches[2] is the hash.
+        var hash = matches[2]
+        if( hash != null ) {
+            defaultProto += hash
+            var newUrl = "http://localhost:8080"+defaultProto
+            window.location = newUrl
+        }
     }
 } 
