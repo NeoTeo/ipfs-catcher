@@ -11,4 +11,4 @@ Simply paste an IPFS hash or any URL that contains an IPFS hash into your addres
 An IPFS node running on your localhost.
 
 ## TODO
-* Look for ipfs or ipns prefix and handle appropriately
+<del>* Look for ipfs or ipns prefix and handle appropriately</del>
