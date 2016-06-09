@@ -1,3 +1,4 @@
+console.log("ipfs-catcher")
 // read the address bar
 var curUrl = window.location.toString()
 
@@ -10,6 +11,7 @@ var matches = regExp.exec(curUrl)
 // which may be null.
 if (matches != null) {
 
+    console.log(matches)
     if (matches.length > 1 && !regExcl.test(curUrl)) {
 
         // matches[1] is the protocol.
