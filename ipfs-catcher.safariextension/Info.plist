@@ -17,17 +17,7 @@
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
-		<string>gpf.html</string>
-	</dict>
-	<key>Content</key>
-	<dict>
-		<key>Scripts</key>
-		<dict>
-			<key>Start</key>
-			<array>
-				<string>startscript.js</string>
-			</array>
-		</dict>
+		<string>global.html</string>
 	</dict>
 	<key>DeveloperIdentifier</key>
 	<string>SK8WX2BAWU</string>
