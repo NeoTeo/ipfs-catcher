@@ -14,3 +14,4 @@ An IPFS node running on your localhost.
 * <del>Look for ipfs or ipns prefix and handle appropriately</del> ✅
 * Handle multiple hashes in same url.
 * Handle path elements after hashes.
+* Add toggle button.
