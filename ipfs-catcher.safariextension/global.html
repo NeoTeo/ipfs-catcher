@@ -10,20 +10,17 @@
         // Called _after_ url load
         function navigateHandler(event) {
             alert("navigate event: "+event.url)
-            //            event.preventDefault()
         }
 
         // called every time the address bar thinks it has an url.
         // Also called as soon as the queryHandler sets the urlbar
         function beforeNavigateHandler(event) {
-            //alert("beforeNavigate event: "+event.url+"   at: "+event.timeStamp)
             /// update timeout and only handle the event on timeout.
-            if(queryHandler(event.query, true) == true) {
-                alert("fire!")
-                queryHandler(query, false)
-            preventDefault()
-            event.preventDefault()
-                return
+            var result = queryHandler(event.url)
+            if( result != "" ) {
+                var theTab = safari.application.activeBrowserWindow.activeTab
+                theTab.url = result 
+                event.preventDefault()
             } 
         }
 
@@ -63,10 +60,6 @@
                     if( hash != null ) {
                         defaultProto += hash
                         var newUrl = "http://localhost:8080"+defaultProto
-                        //var theTab = safari.application.activeBrowserWindow.activeTab
-                            /// This causes beforeNavigateHander to get called and never comes past the preventDefault() 
-                            //theTab.url = newUrl 
-                            // Needed to avoid Safari throwing a "No internet" page on top.
                         return newUrl 
                     }
                 }
