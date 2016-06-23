@@ -2,6 +2,7 @@
 
     <script>
 
+        /// This event only fires when the query doesn't begin with http or https
         safari.application.addEventListener("beforeSearch", beforeSearchHandler, true);
         safari.application.addEventListener("beforeNavigate", beforeNavigateHandler, true);
         //safari.application.addEventListener("navigate", navigateHandler, true);
@@ -12,16 +13,29 @@
             //            event.preventDefault()
         }
 
-        // called every time the address bar thinks it has an url
+        // called every time the address bar thinks it has an url.
+        // Also called as soon as the queryHandler sets the urlbar
         function beforeNavigateHandler(event) {
-            queryHandler(event.url)
-            //alert("beforeNavigate event: "+event.url)
-            //            event.preventDefault()
+            //alert("beforeNavigate event: "+event.url+"   at: "+event.timeStamp)
+            /// update timeout and only handle the event on timeout.
+            if(queryHandler(event.query, true) == true) {
+                alert("fire!")
+                queryHandler(query, false)
+            preventDefault()
+            event.preventDefault()
+                return
+            } 
         }
 
         function beforeSearchHandler(event) {
-            //alert("beforeSearch event: "+event.query)
-            queryHandler(event.query)
+            
+            var result = queryHandler(event.query, false)
+           
+            if( result != "" ) {
+                var theTab = safari.application.activeBrowserWindow.activeTab
+                theTab.url = result 
+                event.preventDefault()
+            }
         }
 
         function queryHandler(query) {
@@ -49,15 +63,15 @@
                     if( hash != null ) {
                         defaultProto += hash
                         var newUrl = "http://localhost:8080"+defaultProto
-                        var theTab = safari.application.activeBrowserWindow.activeTab
-                        theTab.url = newUrl 
-            //alert(matches)
-
-                        // Needed to avoid Safari throwing a "No internet" page on top.
-                        event.preventDefault()
+                        //var theTab = safari.application.activeBrowserWindow.activeTab
+                            /// This causes beforeNavigateHander to get called and never comes past the preventDefault() 
+                            //theTab.url = newUrl 
+                            // Needed to avoid Safari throwing a "No internet" page on top.
+                        return newUrl 
                     }
                 }
             } 
+            return "" 
         }
 
     </script>
