@@ -11,8 +11,7 @@
 
         // Called _after_ url load
         function navigateHandler(event) {
-            //alert("navigate event: "+event.url)
-            console.log("NAVIGATEhANDLER")
+            //console.log("NAVIGATEhANDLER")
             if (ipfsUrl != "") {
                 var theTab = safari.application.activeBrowserWindow.activeTab
                 theTab.url = ipfsUrl 
@@ -20,20 +19,18 @@
             }
         }
 
+
         // called every time the address bar thinks it has an url.
         // Also called as soon as the queryHandler sets the urlbar
         function beforeNavigateHandler(event) {
+
             /// update timeout and only handle the event on timeout.
             var result = queryHandler(event.url)
             console.log("beforeNavigateHandler ")
-            console.log("url: "+event.url)
-            console.log("type: "+event.type)
-            console.log("target: "+event.target)
-            console.log("cancelable: "+event.cancelable)
-            console.log("event phase: "+event.eventPhase)
-            console.log("---------------------------------------------")
-            /// Catch trying to navigate to the non-local version (eg. when user hits back) and ignore it
+
+            /// TODO: Catch trying to navigate to the non-local version (eg. when user hits back) and ignore it
             /// or perhaps even skip to the site before.
+
             if( result != "" ) {
                 var theTab = safari.application.activeBrowserWindow.activeTab
                 console.log("About to navigate to "+result)
@@ -58,7 +55,6 @@
 
         function queryHandler(query) {
             // read the address bar
-            //var curUrl = window.location.toString()
             var curUrl = query
 
             // capture groups always result in the equivalent number of entries in the array.
