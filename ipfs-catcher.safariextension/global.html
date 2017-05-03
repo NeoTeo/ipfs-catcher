@@ -5,7 +5,6 @@
         /// This event only fires when the query doesn't begin with http or https
         safari.application.addEventListener("beforeSearch", beforeSearchHandler, true);
         safari.application.addEventListener("beforeNavigate", beforeNavigateHandler, true);
-        //safari.application.addEventListener("navigate", navigateHandler, true);
 
         // Called _after_ url load
         function navigateHandler(event) {
@@ -17,11 +16,19 @@
         function beforeNavigateHandler(event) {
             /// update timeout and only handle the event on timeout.
             var result = queryHandler(event.url)
+            console.log("beforeNavigateHandler ")
+            console.log("url: "+event.url)
+            console.log("type: "+event.type)
+            console.log("target: "+event.target)
+            console.log("cancelable: "+event.cancelable)
+            console.log("event phase: "+event.eventPhase)
             if( result != "" ) {
                 var theTab = safari.application.activeBrowserWindow.activeTab
+                console.log("About to navigate to "+result)
                 theTab.url = result 
                 event.preventDefault()
             } 
+            event.stopPropagation()
         }
 
         function beforeSearchHandler(event) {
