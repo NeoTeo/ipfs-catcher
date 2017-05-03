@@ -5,10 +5,19 @@
         /// This event only fires when the query doesn't begin with http or https
         safari.application.addEventListener("beforeSearch", beforeSearchHandler, true);
         safari.application.addEventListener("beforeNavigate", beforeNavigateHandler, true);
+        safari.application.addEventListener("navigate", navigateHandler, true);
+
+        var ipfsUrl = ""
 
         // Called _after_ url load
         function navigateHandler(event) {
-            alert("navigate event: "+event.url)
+            //alert("navigate event: "+event.url)
+            console.log("NAVIGATEhANDLER")
+            if (ipfsUrl != "") {
+                var theTab = safari.application.activeBrowserWindow.activeTab
+                theTab.url = ipfsUrl 
+                ipfsUrl = ""
+            }
         }
 
         // called every time the address bar thinks it has an url.
@@ -23,10 +32,14 @@
             console.log("cancelable: "+event.cancelable)
             console.log("event phase: "+event.eventPhase)
             console.log("---------------------------------------------")
+            /// Catch trying to navigate to the non-local version (eg. when user hits back) and ignore it
+            /// or perhaps even skip to the site before.
             if( result != "" ) {
                 var theTab = safari.application.activeBrowserWindow.activeTab
                 console.log("About to navigate to "+result)
-                theTab.url = result 
+                ipfsUrl = result
+                //theTab.url = result 
+                return
                 event.preventDefault()
             } 
             event.stopPropagation()
