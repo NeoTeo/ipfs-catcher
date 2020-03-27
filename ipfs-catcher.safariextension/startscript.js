@@ -3,7 +3,7 @@ console.log("ipfs-catcher")
 var curUrl = window.location.toString()
 
 // capture groups always result in the equivalent number of entries in the array.
-var regExp = /.?(\/ipfs\/|\/ipns\/)?(Qm\w{44})/
+var regExp = /.?(\/ipfs\/|\/ipns\/)?(Qm.+)/
 var regExcl = /http:\/\/localhost.*/
 var matches = regExp.exec(curUrl)
 
